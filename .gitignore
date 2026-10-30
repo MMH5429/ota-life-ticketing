@@ -1,0 +1,11 @@
+﻿node_modules/
+.env
+api/.env
+app/.env
+app/.expo/
+api/dist/
+app/dist/
+.DS_Store
+mysql_data/
+assignment_text.txt
+Ota_Life_Full_Stack_Intern_Assignment.pdf

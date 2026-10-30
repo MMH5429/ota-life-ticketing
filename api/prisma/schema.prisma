@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  tickets   Ticket[]
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  name        String
+  venue       String
+  date        DateTime
+  price       Int
+  totalTickets Int
+  tickets     Ticket[]
+  createdAt   DateTime @default(now())
+}
+
+model Ticket {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  eventId     String
+  userId      String
+  checkedInAt DateTime?
+  createdAt   DateTime  @default(now())
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([userId])
+}
